@@ -1,0 +1,20 @@
+﻿@model WebStore.Domain.Models.ModelBlogSingle
+
+<div class="media commnets">
+    <a class="pull-left" href="#">
+        <img class="media-object" src="~/images/blog/@Model.FirstCommit.Pic" alt="">
+    </a>
+    <div class="media-body">
+        <h4 class="media-heading">@Model.FirstCommit.User</h4>
+        <p>@Model.FirstCommit.Context</p>
+        <div class="blog-socials">
+            <ul>
+                <li><a href=""><i class="fa fa-facebook"></i></a></li>
+                <li><a href=""><i class="fa fa-twitter"></i></a></li>
+                <li><a href=""><i class="fa fa-dribbble"></i></a></li>
+                <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+            </ul>
+            <a class="btn btn-primary" href="">Другие сообщения</a>
+        </div>
+    </div>
+</div><!--Comments-->

@@ -1,0 +1,64 @@
+﻿@model WebStore.Domain.Models.ModelCart
+
+<section id="do_action">
+    <div class="container">
+        <div class="heading">
+            <h3>Что бы вы хотели сделать дальше?</h3>
+            <p>Выберите, есть ли у вас код скидки или бонусные баллы, которые вы хотите использовать или хотите определить стоимость доставки.</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="chose_area">
+                    <ul class="user_option">
+                        <li>
+                            <input type="checkbox">
+                            <label>Использовать код скидки</label>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <label>Использовать бонусные баллы</label>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <label>Рассчитать Доставку и Налоги</label>
+                        </li>
+                    </ul>
+                    <ul class="user_info">
+                        <li class="single_field">
+                            <label>Страна:</label>
+                            <select>
+                                @foreach(var state in Model.SingleField) { <option>@state</option> }
+                            </select>
+
+                        </li>
+                        <li class="single_field">
+                            <label>Область / Район:</label>
+                            <select>
+                                @foreach(var city in Model.CityOrRegion) { <option>@city</option> }
+                            </select>
+
+                        </li>
+                        <li class="single_field zip-field">
+                            <label>Почтовый индекс:</label>
+                            <input type="text">
+                        </li>
+                    </ul>
+                    <a class="btn btn-default update" href="">Сбросить</a>
+                    <a class="btn btn-default check_out" href="">Оформить</a>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="total_area">
+                    <ul>
+                        <li>Стоимость товаров <span>$59</span></li>
+                        <li>Налоги <span>$2</span></li>
+                        <li>Стоимость доставки <span>Бесплатно</span></li>
+                        <li>Общая стоимость<span>$61</span></li>
+                    </ul>
+                    <a class="btn btn-default update" href="">Обновить</a>
+                    <a class="btn btn-default check_out" href="">Оформить</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!--/#do_action-->
