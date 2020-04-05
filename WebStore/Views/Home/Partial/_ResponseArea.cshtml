@@ -1,0 +1,30 @@
+﻿@model ModelBlogSingle
+
+<div class="response-area">
+    <h2>ОТВЕТЫ</h2>
+    <ul class="media-list">
+        @foreach (var commit in Model.Comments)
+        {
+            var e = "";
+            if (commit != Model.Comments.First())
+            {
+                e = "second-media";
+            }
+            <li class="media @e">
+
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="~/images/blog/@commit.Pic" alt="">
+                </a>
+                <div class="media-body">
+                    <ul class="sinlge-post-meta">
+                        <li><i class="fa fa-user"></i>@commit.User</li>
+                        <li><i class="fa fa-clock-o"></i> @commit.Clock</li>
+                        <li><i class="fa fa-calendar"></i> @commit.Date</li>
+                    </ul>
+                    <p>@commit.Context</p>
+                    <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Ответить</a>
+                </div>
+            </li>
+        }
+    </ul>
+</div><!--/Response-area-->

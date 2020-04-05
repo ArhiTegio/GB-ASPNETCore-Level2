@@ -1,0 +1,48 @@
+﻿@using WebStore.ViewModels
+@model EmployeeViewModel
+
+@{
+    ViewData["Title"] = "Сотрудник #" + Model.Id;
+}
+
+<div class="container">
+    <h3>@ViewData["Title"]</h3>
+    <hr />
+    <form method="post">
+        <table>
+            <tbody>
+                <tr>
+                    <td><label>Фамилия:</label></td>
+                    <td><input type="text" name="surName" value="@Model.SecondName" /></td>
+                </tr>
+                <tr>
+                    <td><label>Имя:</label></td>
+                    <td><input type="text" name="firstName" value="@Model.Name" /></td>
+                </tr>
+                <tr>
+                    <td><label>Отчество:</label></td>
+                    <td><input type="text" name="patronymic" value="@Model.Patronymic" /></td>
+                </tr>
+                <tr>
+                    <td><label>Полных лет:</label></td>
+                    <td><input type="text" name="age" value="@Model.Age" /></td>
+                </tr>
+                <tr>
+                    <td><label>Телефон:</label></td>
+                    <td><input type="text" name="telephone" value="@Model.Telephone" /></td>
+                </tr>
+                <tr>
+                    <td><label>День рождения:</label></td>
+                    <td><input type="text" name="birthDay" value="@Model.BirthDay" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" value="Отправить" />
+    </form>
+    <form method="post">
+        <input type="submit" value="Удалить" />
+    </form>
+
+    <hr />
+    <a asp-controller="Employees" asp-action="Index">Сотрудники</a>
+</div>

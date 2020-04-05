@@ -1,0 +1,23 @@
+﻿@using Microsoft.CodeAnalysis.CSharp.Syntax
+@model ModelBlogSingle
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <partial name="Partial/_LeftSideBar" />
+            </div>
+            <div class="col-sm-9">
+                <partial name="Partial/_BlogPostArea" model="Model"/>
+
+                <partial name="Partial/_Comments" model="Model"/>
+
+                <partial name="Partial/_SocialsShare" model="Model"/>
+
+                <partial name="Partial/_Comments" model="Model"/>
+                <partial name="Partial/_ResponseArea" model="Model"/>
+                <partial name="Partial/_RepalyBox" model="Model"/>
+            </div>
+        </div>
+    </div>
+</section>

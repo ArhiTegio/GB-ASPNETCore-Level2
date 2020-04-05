@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Employee>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Emploees</title>
+</head>
+<body>
+<table>
+    @foreach (var employee in Model)
+    {
+    <tr>
+        <td>@employee.Id</td>
+        <td>@employee.SurName</td>
+        <td>@employee.FirstName</td>
+        <td>@employee.Patronymic</td>
+        <td>@employee.Age</td>  
+        <td><a href="~/Home/Employee/@employee.Id">Карточка</a></td>
+    </tr>
+    }
+</table>
+</body>
+</html>

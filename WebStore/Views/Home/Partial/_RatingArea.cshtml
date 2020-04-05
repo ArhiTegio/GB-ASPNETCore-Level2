@@ -1,0 +1,19 @@
+﻿@model ModelBlogSingle
+
+<div class="rating-area">
+    <ul class="ratings">
+        <li class="rate-this">Оцените этот товар:</li>
+        <li>
+            <i class="fa fa-star color"></i>
+            <i class="fa fa-star color"></i>
+            <i class="fa fa-star color"></i>
+            <i class="fa fa-star"></i>
+            <i class="fa fa-star"></i>
+        </li>
+        <li class="color">@Model.TagItem.Vots</li>
+    </ul>
+    <ul class="tag">
+        <li>МЕТКА:</li>
+        @foreach (var tag in Model.TagItem.Tags) { <li><a class="color" href="">@tag <span>/</span></a></li> }
+    </ul>
+</div><!--/rating-area-->
