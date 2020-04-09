@@ -7,13 +7,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebStore.Clients.Employees;
+using WebStore.Clients.Orders;
+using WebStore.Clients.Products;
 using WebStore.Clients.Values;
 using WebStore.DAL.Context;
-using WebStore.Infrastructure.Services;
 using WebStore.Data;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Infrastructure.Services.InCookies;
-using WebStore.Infrastructure.Services.InMemory;
 using WebStore.Infrastructure.Services.InSQL;
 using WebStore.Interfaces.Api;
 using WebStore.Interfaces.Services;
@@ -111,10 +112,14 @@ namespace WebStore
             //AddSingleton
             //services.AddTransient<IEmployeesData, InMemoryEmplyeeData>();
             //services.AddTransient<IProductData, InMemoryProductData>();
+            //services.AddSingleton<IEmployeesData, InMemoryEmplyeeData>();
+            services.AddSingleton<IEmployeesData, EmployeesClient>();
             services.AddScoped<ICustomerData, SqlCustomerData>();
-            services.AddScoped<IProductData, SqlProductData>();
+            //services.AddScoped<IProductData, SqlProductData>();
+            services.AddScoped<IProductData, ProductsClient>();
             services.AddScoped<ICartService, CookiesCartService>();
-            services.AddScoped<IOrderService, SqlOrdersService>();
+            //services.AddScoped<IOrderService, SqlOrdersService>();
+            services.AddScoped<IOrderService, OrdersClient>();
 
             services.AddScoped<IValuesService, ValuesClient>();
         }

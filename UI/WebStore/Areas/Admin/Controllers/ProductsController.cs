@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entities;
 using WebStore.Domain.Entities.Identity;
+using WebStore.Infrastructure.Mapping;
 using WebStore.Interfaces.Services;
 
 namespace WebStore.Areas.Admin.Controllers
@@ -13,11 +15,11 @@ namespace WebStore.Areas.Admin.Controllers
 
         public ProductsController(IProductData productData) => _productData = productData;
 
-        public IActionResult Index() => View(_productData.GetProducts());
+        public IActionResult Index() => View(_productData.GetProducts().Select(x => x.FromDTO()));
 
         public IActionResult Edit(int? id)
         {
-            var product = id is null ? new Product() : _productData.GetProductById((int) id);
+            var product = id is null ? new Product() : _productData.GetProductById((int) id).FromDTO();
 
             if (product is null)
                 return NotFound();
@@ -32,7 +34,7 @@ namespace WebStore.Areas.Admin.Controllers
             if (product is null)
                 return NotFound();
 
-            return View(product);
+            return View(product.FromDTO());
         }
 
         [HttpPost, ValidateAntiForgeryToken, ActionName(nameof(Delete))]
