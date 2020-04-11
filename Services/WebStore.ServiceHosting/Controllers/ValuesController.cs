@@ -14,7 +14,10 @@ namespace WebStore.ServiceHosting.Controllers
     {
         private static readonly List<string> _values = Enumerable.Range(1, 10).Select(n => $"Value {n}").ToList();
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get() => _values;
+        public ActionResult<IEnumerable<string>> Get()
+        {
+            return _values;
+        }
 
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
@@ -27,7 +30,10 @@ namespace WebStore.ServiceHosting.Controllers
         }
 
         [HttpPost]
-        public void Post(string value) => _values.Add(value);
+        public void Post(string value)
+        {
+            _values.Add(value);
+        }
 
         [HttpPut("{id}")]
         public ActionResult Put(int id, string value)

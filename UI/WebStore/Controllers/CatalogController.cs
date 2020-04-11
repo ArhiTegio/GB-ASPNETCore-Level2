@@ -29,6 +29,7 @@ namespace WebStore.Controllers
                         Name = product.Name,
                         Order = product.Order,
                         Price = product.Price,
+                        
                     }).OrderBy(product => product.Order),
             };
 
@@ -41,7 +42,7 @@ namespace WebStore.Controllers
             if (product is null)
                 return NotFound();
 
-            return View(product.ToView());
+            return View(product.FromDTO().ToView());
         }
     }
 }
