@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebStore.Domain.Entities;
@@ -15,11 +16,12 @@ namespace WebStore.Areas.Admin.Controllers
 
         public ProductsController(IProductData productData) => _productData = productData;
 
-        public IActionResult Index() => View(_productData.GetProducts().Select(x => x.FromDTO()));
+        public IActionResult Index([FromServices] IMapper Mapper) =>
+            View(_productData.GetProducts().Select(x => Mapper.Map<Product>(x))); //x.FromDTO()));
 
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(int? id, [FromServices] IMapper Mapper)
         {
-            var product = id is null ? new Product() : _productData.GetProductById((int) id).FromDTO();
+            var product = id is null ? new Product() : Mapper.Map<Product>(_productData.GetProductById((int)id)); // _productData.GetProductById((int) id).FromDTO();
 
             if (product is null)
                 return NotFound();

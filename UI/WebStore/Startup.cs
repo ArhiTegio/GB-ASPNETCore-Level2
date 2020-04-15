@@ -1,4 +1,5 @@
 ﻿using System;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,14 +9,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebStore.Clients.Employees;
+using WebStore.Clients.Identity;
 using WebStore.Clients.Orders;
 using WebStore.Clients.Products;
 using WebStore.Clients.Values;
-using WebStore.DAL.Context;
+//using WebStore.DAL.Context;
 using WebStore.Data;
 using WebStore.Domain.Entities.Identity;
 using WebStore.Infrastructure.Services.InCookies;
 using WebStore.Infrastructure.Services.InSQL;
+using WebStore.Infrastructuse.AutoMapper;
 using WebStore.Interfaces.Api;
 using WebStore.Interfaces.Services;
 
@@ -29,14 +32,36 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddDbContext<WebStoreDB>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<WebStoreDBInitializer>();
+            services.AddAutoMapper(opt =>
+            {
+                opt.AddProfile<DTOMapping>();
+                opt.AddProfile<ViewModelMapping>();
+            }, typeof(Startup));
+            //services.AddDbContext<WebStoreDB>(opt =>
+            //    opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddTransient<WebStoreDBInitializer>();
 
             services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<WebStoreDB>()
+                //.AddEntityFrameworkStores<WebStoreDB>()
                 .AddDefaultTokenProviders();
+
+            #region WebAPI Identity client store
+
+            services
+                .AddTransient<IUserStore<User>, UsersClient>()
+                .AddTransient<IUserPasswordStore<User>, UsersClient>()
+                .AddTransient<IUserEmailStore<User>, UsersClient>()
+                .AddTransient<IUserPhoneNumberStore<User>, UsersClient>()
+                .AddTransient<IUserTwoFactorStore<User>, UsersClient>()
+                .AddTransient<IUserLockoutStore<User>, UsersClient>()
+                .AddTransient<IUserClaimStore<User>, UsersClient>()
+                .AddTransient<IUserLoginStore<User>, UsersClient>();
+
+            services
+                .AddTransient<IRoleStore<Role>, IRolesClient>();
+
+            #endregion
+
             services.Configure<IdentityOptions>(opt =>
             {
                 opt.Password.RequiredLength = 3;
@@ -124,9 +149,10 @@ namespace WebStore
             services.AddScoped<IValuesService, ValuesClient>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
+        //public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            db.Initialize();
+            //db.Initialize();
             //db.Products.Count();
             if (env.IsDevelopment())
             {
