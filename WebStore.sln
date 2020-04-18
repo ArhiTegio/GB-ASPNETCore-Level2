@@ -26,7 +26,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Interfaces", "Serv
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Services", "WebStore.Services\WebStore.Services.csproj", "{783BD2B2-0ECD-4E34-A383-871416FF7472}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Clients", "Services\WebStore.Clients\WebStore.Clients.csproj", "{EA31EF4C-1837-439C-92C5-71B20610C2C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebStore.Clients", "Services\WebStore.Clients\WebStore.Clients.csproj", "{EA31EF4C-1837-439C-92C5-71B20610C2C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebStore.Logger", "Common\WebStore.Logger\WebStore.Logger.csproj", "{E9389735-EE93-40A9-8001-9A5C9542CC24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,6 +64,10 @@ Global
 		{EA31EF4C-1837-439C-92C5-71B20610C2C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA31EF4C-1837-439C-92C5-71B20610C2C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA31EF4C-1837-439C-92C5-71B20610C2C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9389735-EE93-40A9-8001-9A5C9542CC24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9389735-EE93-40A9-8001-9A5C9542CC24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9389735-EE93-40A9-8001-9A5C9542CC24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9389735-EE93-40A9-8001-9A5C9542CC24}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{517BB064-8AE4-4CFC-A828-4626DD4A1FC8} = {0E01BCF1-61E4-4DCA-B9C6-CCFF7AEECE48}
 		{783BD2B2-0ECD-4E34-A383-871416FF7472} = {0E01BCF1-61E4-4DCA-B9C6-CCFF7AEECE48}
 		{EA31EF4C-1837-439C-92C5-71B20610C2C4} = {0E01BCF1-61E4-4DCA-B9C6-CCFF7AEECE48}
+		{E9389735-EE93-40A9-8001-9A5C9542CC24} = {3ADCE67E-9044-44AB-87F1-BABF9BE3990A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {03B48D7A-D1FA-42B8-B4B5-E9BA9125FA87}

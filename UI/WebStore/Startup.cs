@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using WebStore.Clients.Employees;
 using WebStore.Clients.Identity;
 using WebStore.Clients.Orders;
@@ -19,8 +20,10 @@ using WebStore.Domain.Entities.Identity;
 using WebStore.Infrastructure.Services.InCookies;
 using WebStore.Infrastructure.Services.InSQL;
 using WebStore.Infrastructuse.AutoMapper;
+using WebStore.Infrastructuse.Middlewere;
 using WebStore.Interfaces.Api;
 using WebStore.Interfaces.Services;
+using WebStore.Logger;
 
 namespace WebStore
 {
@@ -150,8 +153,10 @@ namespace WebStore
         }
 
         //public void Configure(IApplicationBuilder app, IWebHostEnvironment env, WebStoreDBInitializer db)
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory log)
         {
+            log.AddLog4Net();
+
             //db.Initialize();
             //db.Products.Count();
             if (env.IsDevelopment())
@@ -174,6 +179,8 @@ namespace WebStore
             //Добавляем расширение для использования статических файлов, т.к. appsettings.json - это статический файл
             //app.UseStaticFiles();
             //app.UseAuthentication();
+
+            app.UseMiddleware<ErrorHandling>();
 
             app.UseEndpoints(endpoints =>
             {
