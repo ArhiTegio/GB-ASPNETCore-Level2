@@ -24,6 +24,8 @@ using WebStore.Infrastructuse.Middlewere;
 using WebStore.Interfaces.Api;
 using WebStore.Interfaces.Services;
 using WebStore.Logger;
+using WebStore.Services.Products;
+using WebStore.Services.Products.InCookies;
 
 namespace WebStore
 {
@@ -145,7 +147,9 @@ namespace WebStore
             services.AddScoped<ICustomerData, SqlCustomerData>();
             //services.AddScoped<IProductData, SqlProductData>();
             services.AddScoped<IProductData, ProductsClient>();
-            services.AddScoped<ICartService, CookiesCartService>();
+            //services.AddScoped<ICartService, CookiesCartService>();
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<ICartStore, CookiesCartStore>();
             //services.AddScoped<IOrderService, SqlOrdersService>();
             services.AddScoped<IOrderService, OrdersClient>();
 
