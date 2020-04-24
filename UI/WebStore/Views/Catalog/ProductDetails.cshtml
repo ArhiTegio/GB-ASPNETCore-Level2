@@ -3,6 +3,10 @@
     ViewData["Title"] = $"Товар {Model.Name}";
 }
 
+<div class="container">
+    <vc:bread-crumbs />
+</div>
+
 <section>
     <div class="container">
         <div class="row">
@@ -11,11 +15,11 @@
             </div>
 
             <div class="col-sm-9 padding-right">
-                <partial name="Partial/_ProductDetails" model="@Model"/>
-                
-                <partial name="Partial/_CategoryTab" model="@Model"/>
+                <partial name="Partial/_ProductDetails" model="@Model" />
 
-                <partial name="Partial/_RecomendedItems" model="@Model"/>
+                <partial name="Partial/_CategoryTab" model="@Model" />
+
+                <partial name="Partial/_RecomendedItems" model="@Model" />
 
             </div>
         </div>

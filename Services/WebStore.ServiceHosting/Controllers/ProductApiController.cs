@@ -23,8 +23,14 @@ namespace WebStore.ServiceHosting.Controllers
         [HttpGet("sections")]
         public IEnumerable<Section> GetSections() => _productData.GetSections();
 
+        [HttpGet("sections/{id}")]
+        public SectionDTO GetSectionById(int id) => _productData.GetSectionById(id);
+
         [HttpGet("brands")]
         public IEnumerable<Brand> GetBrands() => _productData.GetBrands();
+
+        [HttpGet("brand/{id}")]
+        public BrandDTO GetBrandById(int id) => _productData.GetBrandById(id);
 
         [HttpPost]
         public IEnumerable<ProductDTO> GetProducts([FromBody] ProductFilter Filter = null) => _productData.GetProducts(Filter);
