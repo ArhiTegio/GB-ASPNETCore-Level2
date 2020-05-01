@@ -13,13 +13,21 @@
                         <img alt="" src="~/images/shop/@product.ImageUrl" />
                         <h2>@product.Price</h2>
                         <p><a asp-action="ProductDetails" asp-route-id="@product.Id" asp-route-FromBrand="true">@product.Name</a></p>
-                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id"  class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Добавить в карзину</a>
+                        <a asp-controller="Cart" 
+                           asp-action="AddToCart" 
+                           asp-route-id="@product.Id"  
+                           data-id="@product.Id"
+                           class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Добавить в карзину</a>
                     </div>
                     <div class="product-overlay">
                         <div class="overlay-content">
                             <h2>@product.Price</h2>
                             <p><a asp-action="ProductDetails" asp-route-id="@product.Id">@product.Name</a></p>
-                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-id="@product.Id" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Добавить в карзину</a>
+                            <a asp-controller="Cart" 
+                               asp-action="AddToCart" 
+                               asp-route-id="@product.Id" 
+                               data-id="@product.Id"
+                               class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Добавить в карзину</a>
                         </div>
                     </div>
                 </div>

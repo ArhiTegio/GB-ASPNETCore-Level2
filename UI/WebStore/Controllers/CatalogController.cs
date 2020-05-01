@@ -1,36 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using WebStore.Domain.Entities;
 using WebStore.Domain.ViewModels;
 using WebStore.Infrastructure.Mapping;
 using WebStore.Interfaces.Services;
+using WebStore.Services.Mapping;
 
 namespace WebStore.Controllers
 {
     public class CatalogController : Controller
     {
         private readonly IProductData _productData;
-        public CatalogController(IProductData productData) => _productData = productData;
+        private readonly IConfiguration _Configuration;
 
-        public IActionResult Shop(int? sectionId, int? breandId)
+        public CatalogController(IProductData ProductData, IConfiguration Configuration)
         {
+            _productData = ProductData;
+            _Configuration = Configuration;
+        }
+
+        public IActionResult Shop(int? sectionId, int? breandId, int page = 1)
+        {
+            var page_size = int.TryParse(_Configuration["PageSize"], out var size) ? size : (int?)null;
+
+            var filter = new ProductFilter
+            {
+                SectionId = sectionId,
+                BrandId = breandId,
+                Page = page,
+                PageSize = page_size
+            };
+
+
+            var products = _productData.GetProducts(filter);
+
             var answer = new CatalogViewModel()
             {
                 SectionId = sectionId,
                 BrandId = breandId,
-                Products = _productData.GetProducts(new ProductFilter() {BrandId = breandId, SectionId = sectionId})
-                    .Select(product => new ProductViewModel()
-                    {
-                        Id = product.Id,
-                        ImageUrl = product.ImageUrl,
-                        Name = product.Name,
-                        Order = product.Order,
-                        Price = product.Price,
-                        
-                    }).OrderBy(product => product.Order),
+                Products = products.Products.Select(ProductMapping.FromDTO).Select(ProductMapping.ToView).OrderBy(p => p.Order),
+                PageView_Model = new PageViewModel
+                {
+                    PageSize = page_size ?? 0,
+                    PageNumber = page,
+                    TotalItems = products.TotalCount
+                } 
             };
 
             return View(answer);

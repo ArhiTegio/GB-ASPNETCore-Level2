@@ -17,7 +17,7 @@ namespace WebStore.Areas.Admin.Controllers
         public ProductsController(IProductData productData) => _productData = productData;
 
         public IActionResult Index([FromServices] IMapper Mapper) =>
-            View(_productData.GetProducts().Select(x => Mapper.Map<Product>(x))); //x.FromDTO()));
+            View(_productData.GetProducts().Products.Select(x => Mapper.Map<Product>(x))); //x.FromDTO()));
 
         public IActionResult Edit(int? id, [FromServices] IMapper Mapper)
         {

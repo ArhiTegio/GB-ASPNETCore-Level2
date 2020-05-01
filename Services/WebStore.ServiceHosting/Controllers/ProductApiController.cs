@@ -33,7 +33,7 @@ namespace WebStore.ServiceHosting.Controllers
         public BrandDTO GetBrandById(int id) => _productData.GetBrandById(id);
 
         [HttpPost]
-        public IEnumerable<ProductDTO> GetProducts([FromBody] ProductFilter Filter = null) => _productData.GetProducts(Filter);
+        public PagedProductsDTO GetProducts([FromBody] ProductFilter Filter = null) => _productData.GetProducts(Filter);
 
         [HttpGet("{id}")]
         public ProductDTO GetProductById(int id) => _productData.GetProductById(id);
