@@ -26,6 +26,9 @@ using WebStore.Interfaces.Services;
 using WebStore.Logger;
 using WebStore.Services.Products;
 using WebStore.Services.Products.InCookies;
+using WebStore.Hubs;
+using WebStore.Infrastructure.AutoMapper;
+using WebStore.Infrastructure.Middleware;
 
 namespace WebStore
 {
@@ -37,6 +40,8 @@ namespace WebStore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR();
+
             services.AddAutoMapper(opt =>
             {
                 opt.AddProfile<DTOMapping>();
@@ -191,6 +196,8 @@ namespace WebStore
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<InformationHub>("/info");
+
                 endpoints.MapGet("/greetings", async context =>
                 {
                     await context.Response.WriteAsync(Configuration["CustomGreetings"]);

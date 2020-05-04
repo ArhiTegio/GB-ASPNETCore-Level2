@@ -6,11 +6,14 @@ using WebStore.Domain.ViewModels;
 using WebStore.Infrastructure.Mapping;
 using WebStore.Interfaces.Services;
 using WebStore.Services.Mapping;
+using System.Collections.Generic;
+using WebStore.Domain.DTO.Products;
 
 namespace WebStore.Controllers
 {
     public class CatalogController : Controller
     {
+        private const string __PageSize = "PageSize";
         private readonly IProductData _productData;
         private readonly IConfiguration _Configuration;
 
@@ -22,7 +25,7 @@ namespace WebStore.Controllers
 
         public IActionResult Shop(int? sectionId, int? breandId, int page = 1)
         {
-            var page_size = int.TryParse(_Configuration["PageSize"], out var size) ? size : (int?)null;
+            var page_size = int.TryParse(_Configuration[__PageSize], out var size) ? size : (int?)null;
 
             var filter = new ProductFilter
             {
@@ -59,5 +62,29 @@ namespace WebStore.Controllers
 
             return View(product.FromDTO().ToView());
         }
+
+        #region API
+
+        public IActionResult GetFilteredItems(int? SectionId, int? BrandId, int Page)
+        {
+            var products =
+                GetProducts(SectionId, BrandId, Page)
+                   .Select(ProductMapping.FromDTO)
+                   .Select(ProductMapping.ToView)
+                   .OrderBy(p => p.Order);
+            return PartialView("Partial/_FeaturesItems", products);
+        }
+
+        private IEnumerable<ProductDTO> GetProducts(int? SectionId, int? BrandId, int Page) =>
+            _productData.GetProducts(new ProductFilter
+            {
+                SectionId = SectionId,
+                BrandId = BrandId,
+                Page = Page,
+                PageSize = int.Parse(_Configuration[__PageSize])
+            })
+            .Products;
+
+        #endregion
     }
 }

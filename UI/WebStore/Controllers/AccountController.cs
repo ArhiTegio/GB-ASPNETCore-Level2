@@ -14,15 +14,23 @@ namespace WebStore.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _UseManager;
+        private readonly UserManager<User> _UserManager;
         private readonly SignInManager<User> _SignInManager;
         private readonly ILogger _logger;
 
-        public AccountController(UserManager<User> UseManager, SignInManager<User> SignInManager, ILogger logger)
+        public AccountController(UserManager<User> UserManager, SignInManager<User> SignInManager, ILogger logger)
         {
-            _UseManager = UseManager;
+            _UserManager = UserManager;
             _SignInManager = SignInManager;
             _logger = logger;
+        }
+
+        public async Task<IActionResult> IsNameFree(string UserName)
+        {
+            var user = await _UserManager.FindByNameAsync(UserName);
+            if (user != null)
+                return Json("Пользователь уже существует");
+            return Json("true");
         }
 
         public IActionResult Register() => View(new RegisterUserViewModel());
@@ -40,11 +48,11 @@ namespace WebStore.Controllers
 
             using (_logger.BeginScope($"Создан новый пользователь {Model.UserName}"))
             {
-                var register_result = await _UseManager.CreateAsync(user, Model.Password);
+                var register_result = await _UserManager.CreateAsync(user, Model.Password);
                 if (register_result.Succeeded)
                 {
                     _logger.BeginScope($"Пользователь {Model.UserName} успешно зарегестрирован");
-                    await _UseManager.AddToRoleAsync(user, Role.User);
+                    await _UserManager.AddToRoleAsync(user, Role.User);
 
                     _logger.BeginScope($"Пользователю {Model.UserName} добавлена роль {Role.User}");
                     await _SignInManager.SignInAsync(user, false);
