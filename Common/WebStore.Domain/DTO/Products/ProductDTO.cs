@@ -15,16 +15,4 @@ namespace WebStore.Domain.DTO.Products
         public BrandDTO Brand { get; set; }
         public SectionDTO Section { get; set; }
     }
-
-    public class BrandDTO : INamedEntity
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
-
-    public class SectionDTO : INamedEntity
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
 }
